@@ -8,7 +8,7 @@ import data from '../data';
 import './Form.css';
 
 const UserForm = ({ errors, touched, values, status }) => {
-  const [users, setUsers] = useState(data);
+  const [users, setUsers] = useState([]);
   console.log("this is touched", touched);
   useEffect(() => {
     if (status) {
@@ -18,7 +18,7 @@ const UserForm = ({ errors, touched, values, status }) => {
 
   return (
     <div className="user-form">
-      <h1>User Form</h1>
+      <h1>User Onboarding</h1>
       <Form>
         <Field type="text" name="name" placeholder="Name" />
         {touched.name && errors.name && (
@@ -35,13 +35,14 @@ const UserForm = ({ errors, touched, values, status }) => {
             checked={values.tos}
           />
           <span className="checkmark" />
+          {touched.tos && errors.tos && <p className="error">{errors.tos}</p>}
         </label>
         <button type="submit">Submit!</button>
       </Form>
 
       {users.map(user => (
         <ol key={user.id}>
-          <li>Name: {user.name}</li>
+          <h2>Name: {user.name}</h2>
           <li>E-mail: {user.email}</li>
           <li>Password: {user.password}</li>
         </ol>
@@ -64,7 +65,7 @@ const FormikUserForm = withFormik({
     name: Yup.string().required("Please enter your name."),
     email: Yup.string().email().required("Please enter your email."),
     password: Yup.string().min(8).required("Please enter your password."),
-    tos: Yup.boolean().oneOf([true], 'Must accept Terms of Service')
+    tos: Yup.boolean().oneOf([true], "Please agree to the Terms of Service.")
   }),
 
   handleSubmit(values, { setStatus }) {

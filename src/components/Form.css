@@ -5,3 +5,19 @@ ol {
 li {
     text-align: left;
 }
+
+h2 {
+    text-align: left;
+}
+
+form {
+    display: flex; 
+    flex-direction: column;
+    width: 100%;
+    align-items: center; 
+    margin: 0;
+}
+
+input {
+    margin: 10px;
+}
